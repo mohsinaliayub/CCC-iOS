@@ -17,7 +17,7 @@ struct CCCApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SignUpView(signUpViewModel: SignUpViewModel(authManager: AuthManagerImp()))
         }
     }
 }
