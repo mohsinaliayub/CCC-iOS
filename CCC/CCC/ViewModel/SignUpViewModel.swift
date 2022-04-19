@@ -6,11 +6,17 @@
 //
 
 import Foundation
+import UIKit
 
 class SignUpViewModel: ObservableObject {
     
+    let profileImagePlaceholder = "person.crop.circle"
+    
     @Published var email: String
     @Published var password: String
+    @Published var firstName: String
+    @Published var lastName: String
+    @Published var profileImage: UIImage?
     
     private let authManager: AuthManager
     
@@ -18,6 +24,8 @@ class SignUpViewModel: ObservableObject {
         self.authManager = authManager
         email = ""
         password = ""
+        firstName = ""
+        lastName = ""
     }
     
     func signUp() {
@@ -31,6 +39,10 @@ class SignUpViewModel: ObservableObject {
 //                return
 //            }
 //        }
+    }
+    
+    func choosePictureFromGallery() {
+        
     }
     
     

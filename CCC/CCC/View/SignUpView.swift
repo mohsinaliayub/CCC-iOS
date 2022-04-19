@@ -7,20 +7,69 @@
 
 import SwiftUI
 
+private struct Constants {
+    static let textFieldBorderCornerRadius: CGFloat = 10
+    static let textFieldBorderLineWidth: CGFloat = 1.0
+    static let textAndSecureFieldHeight: CGFloat = 30
+    static let profilePhotoImageViewHeight: CGFloat = 150
+    static let profilePhotoImageViewWidth: CGFloat = 150
+}
+
 struct SignUpView: View {
     
     @ObservedObject var signUpViewModel: SignUpViewModel
+    @State var showPhotoOptions = false
     
     var body: some View {
-        VStack {
-            Text(String(localized: "Sign Up"))
-                .font(.largeTitle)
-            
-            emailField
-            passwordField
-            signUpButton
+        ScrollView {
+            VStack {
+                Text(String(localized: "Sign Up"))
+                    .font(.largeTitle)
+                
+                VStack {
+                    profileImageView
+                    
+                    Button("Edit") {
+                        showPhotoOptions = true
+                    }
+                }
+                .padding(.bottom)
+                
+                SignUpViewTextField(placeholder: String(localized: "First Name"),
+                                    text: $signUpViewModel.firstName,
+                                    keyboardType: .namePhonePad)
+                SignUpViewTextField(placeholder: String(localized: "Last Name"),
+                                    text: $signUpViewModel.lastName,
+                                    keyboardType: .namePhonePad)
+                SignUpViewTextField(placeholder: String(localized: "Email"),
+                                    text: $signUpViewModel.email, keyboardType: .emailAddress)
+                passwordField
+                
+                signUpButton
+            }
+            .padding()
         }
-        .padding()
+        .fullScreenCover(isPresented: $showPhotoOptions) {
+            ImagePicker(selectedImage: $signUpViewModel.profileImage)
+        }
+    }
+    
+    var profileImageView: some View {
+        let image: Image
+        
+        if let profileImage = signUpViewModel.profileImage {
+            image = Image(uiImage: profileImage)
+        } else {
+            image = Image(systemName: signUpViewModel.profileImagePlaceholder)
+        }
+        
+        return image
+            .resizable()
+            .frame(width: Constants.profilePhotoImageViewWidth,
+                   height: Constants.profilePhotoImageViewHeight)
+            .scaledToFill()
+            .clipShape(Circle())
+            .foregroundColor(.gray)
     }
     
     var signUpButton: some View {
@@ -37,16 +86,6 @@ struct SignUpView: View {
         .padding(.vertical)
     }
     
-    var emailField: some View {
-        TextField(String(localized: "Email"), text: $signUpViewModel.email)
-            .frame(height: Constants.textAndSecureFieldHeight)
-            .padding()
-            .overlay {
-                roundedRectangle
-            }
-            .keyboardType(.emailAddress)
-    }
-    
     var passwordField: some View {
         SecureField(String(localized: "Password"), text: $signUpViewModel.password)
             .frame(height: Constants.textAndSecureFieldHeight)
@@ -61,11 +100,25 @@ struct SignUpView: View {
                                                lineWidth: Constants.textFieldBorderLineWidth)
     }
     
-    private struct Constants {
-        static let textFieldBorderCornerRadius: CGFloat = 10
-        static let textFieldBorderLineWidth: CGFloat = 1.0
-        static let textAndSecureFieldHeight: CGFloat = 30
+}
+
+struct SignUpViewTextField: View {
+    
+    let placeholder: String
+    var text: Binding<String>
+    let keyboardType: UIKeyboardType
+    
+    var body: some View {
+        TextField(placeholder, text: text)
+            .frame(height: Constants.textAndSecureFieldHeight)
+            .padding()
+            .keyboardType(keyboardType)
+            .overlay {
+                RoundedRectangleWithBorderAndLineWidth(cornerRadius: Constants.textFieldBorderCornerRadius,
+                                                       lineWidth: Constants.textFieldBorderLineWidth)
+            }
     }
+    
 }
 
 fileprivate struct RoundedRectangleWithBorderAndLineWidth: View {

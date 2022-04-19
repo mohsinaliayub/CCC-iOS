@@ -7,14 +7,19 @@
 
 import Foundation
 
-struct User {
+struct User: Codable {
     
     var email: String
-    var password: String
     var firstName: String
     var lastName: String
-    var phoneNumber: String
-    var profilePhotoUrlString: String
+    var phoneNumber: String?
+    var profilePhotoUrlString: String?
     var isVerified = false
+    
+    enum CodingKeys: String, CodingKey {
+        case email, firstName, lastName, phoneNumber
+        case profilePhotoUrlString = "profilePhotoUrl"
+        case isVerified = "verified"
+    }
     
 }
