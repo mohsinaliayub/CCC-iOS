@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct User: Codable {
+struct User {
     
+    let id: String
     var email: String
     var firstName: String
     var lastName: String
@@ -16,10 +17,50 @@ struct User: Codable {
     var profilePhotoUrlString: String?
     var isVerified = false
     
-    enum CodingKeys: String, CodingKey {
-        case email, firstName, lastName, phoneNumber
-        case profilePhotoUrlString = "profilePhotoUrl"
-        case isVerified = "verified"
+    var dictionary: [String: Any] {
+        [
+            Constants.id: id,
+            Constants.email: email,
+            Constants.firstName: firstName,
+            Constants.lastName: lastName,
+            Constants.phoneNumber: phoneNumber as Any,
+            Constants.profilePhotoUrlString: profilePhotoUrlString as Any,
+            Constants.isVerified: isVerified
+        ]
+    }
+    
+    init(email: String, firstName: String, lastName: String,
+         phoneNumber: String? = nil, profilePhotoUrlString: String? = nil) {
+        self.id = UUID().uuidString
+        self.email = email
+        self.firstName = firstName
+        self.lastName = lastName
+        self.phoneNumber = phoneNumber
+        self.profilePhotoUrlString = profilePhotoUrlString
+    }
+    
+    private struct Constants {
+        static let id = "id"
+        static let email = "email"
+        static let firstName = "first_name"
+        static let lastName = "last_name"
+        static let phoneNumber = "phone_number"
+        static let profilePhotoUrlString = "profile_photo_url"
+        static let isVerified = "verified"
+    }
+    
+}
+
+extension User {
+    
+    init(from dictionary: [String: Any]) {
+        id = dictionary[Constants.id] as! String
+        email = dictionary[Constants.email] as! String
+        firstName = dictionary[Constants.firstName] as! String
+        lastName = dictionary[Constants.lastName] as! String
+        phoneNumber = dictionary[Constants.phoneNumber] as? String
+        profilePhotoUrlString = dictionary[Constants.profilePhotoUrlString] as? String
+        isVerified = dictionary[Constants.isVerified] as! Bool
     }
     
 }

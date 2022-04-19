@@ -136,6 +136,8 @@ fileprivate struct RoundedRectangleWithBorderAndLineWidth: View {
 
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpView(signUpViewModel: SignUpViewModel(authManager: AuthManagerImp()))
+        SignUpView(signUpViewModel: SignUpViewModel(authManager: AuthManagerImp(),
+                                                    mediaManager: FirebaseMediaManager(),
+                                                    userManager: FirestoreUserManager()))
     }
 }

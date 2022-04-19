@@ -12,16 +12,24 @@ class SignUpViewModel: ObservableObject {
     
     let profileImagePlaceholder = "person.crop.circle"
     
+    private let authManager: AuthManager
+    private let mediaManager: MediaManager
+    private let userManager: UserManager
+    
+    private let compressionQuality: CGFloat = 0.1
+    
     @Published var email: String
     @Published var password: String
     @Published var firstName: String
     @Published var lastName: String
     @Published var profileImage: UIImage?
+    @Published var signUpSuccessful = false
     
-    private let authManager: AuthManager
     
-    init(authManager: AuthManager) {
+    init(authManager: AuthManager, mediaManager: MediaManager, userManager: UserManager) {
         self.authManager = authManager
+        self.mediaManager = mediaManager
+        self.userManager = userManager
         email = ""
         password = ""
         firstName = ""
@@ -31,19 +39,58 @@ class SignUpViewModel: ObservableObject {
     func signUp() {
         // FIXME: Check whether email and password have valid values
         
-        // got both email and password, now create the account
-//        authManager.createUser(withEmail: email, password: password) { error in
-//            // do something useful with error
-//            if let error = error {
-//                print(error.localizedDescription)
-//                return
-//            }
-//        }
-    }
-    
-    func choosePictureFromGallery() {
+        let user = User(email: email, firstName: firstName, lastName: lastName)
         
+        // Got both email and password, now create the account
+        createUser(user, password: password)
     }
     
+    private func createUser(_ user: User, password: String) {
+        authManager.createUser(withEmail: user.email, password: password) { error in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            
+            // Upload profile image to data store
+            self.uploadProfileImage(for: user)
+        }
+    }
+    
+    private func uploadProfileImage(for user: User) {
+        guard let profileImage = profileImage,
+              let profileImageData = profileImage.jpegData(compressionQuality: compressionQuality) else {
+            return
+        }
+        
+        mediaManager.uploadProfileImage(withData: profileImageData, for: user) { profilePhotoUrlString, error in
+            // An error uploading the image.
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            
+            // Get the String for profile Url.
+            guard let profilePhotoUrlString = profilePhotoUrlString else { return }
+            
+            let userToSaveInFirestore = User(email: user.email, firstName: user.firstName, lastName: user.lastName,
+                               phoneNumber: nil, profilePhotoUrlString: profilePhotoUrlString)
+            
+            self.saveUserInDatastore(userToSaveInFirestore)
+        }
+    }
+    
+    private func saveUserInDatastore(_ user: User) {
+        userManager.saveUser(user: user) { error in
+            // There is an error saving user in Data Store.
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            
+            // Show a message that the sign up is successful.
+            self.signUpSuccessful = true
+        }
+    }
     
 }

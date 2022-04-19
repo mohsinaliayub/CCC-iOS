@@ -17,7 +17,13 @@ struct CCCApp: App {
     
     var body: some Scene {
         WindowGroup {
-            SignUpView(signUpViewModel: SignUpViewModel(authManager: AuthManagerImp()))
+            let authManager: AuthManager = AuthManagerImp()
+            let mediaManager: MediaManager = FirebaseMediaManager()
+            let userManager: UserManager = FirestoreUserManager()
+            
+            SignUpView(signUpViewModel: SignUpViewModel(authManager: authManager,
+                                                        mediaManager: mediaManager,
+                                                        userManager: userManager))
         }
     }
 }
