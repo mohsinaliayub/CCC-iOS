@@ -19,19 +19,21 @@ class SignInViewModel: ObservableObject {
     
     private let authManager: AuthManager
     private let userManager: UserManager
+    private let mediaManager: MediaManager
     private var cancellable = Set<AnyCancellable>()
     private var isInputValid: Bool {
         isEmailValid && isPasswordValid
     }
     
     var dashboardViewModel: DashboardViewModel {
-        DashboardViewModel(authManager: authManager, userManager: userManager)
+        DashboardViewModel(authManager: authManager, userManager: userManager, mediaManager: mediaManager)
     }
     
-    init(authManager: AuthManager, userManager: UserManager) {
+    init(authManager: AuthManager, userManager: UserManager, mediaManager: MediaManager) {
         email = ""; password = ""
         self.authManager = authManager
         self.userManager = userManager
+        self.mediaManager = mediaManager
         
         setupSubscriptionChainForValidation()
     }

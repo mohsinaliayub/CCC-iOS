@@ -26,6 +26,7 @@ protocol AuthManager: AnyObject {
     
     func createUser(withEmail: String, password: String, completion: @escaping (_ userId: String?, Error?) -> Void)
     func signIn(withEmail: String, password: String, completion: @escaping (_ userId: String?, SignInError?) -> Void)
+    func signOut(completion: @escaping (Error?) -> Void)
 }
 
 class AuthManagerImp: AuthManager {
@@ -48,7 +49,13 @@ class AuthManagerImp: AuthManager {
             return user
         }
         set {
-            guard let user = newValue, let json = try? JSONEncoder().encode(user) else {
+            guard let user = newValue else {
+                UserDefaults.standard.removeObject(forKey: signedInUserKeyForUserDefaults)
+                UserDefaults.standard.synchronize()
+                return
+            }
+            
+            guard let json = try? JSONEncoder().encode(user) else {
                 return
             }
             
@@ -90,6 +97,16 @@ class AuthManagerImp: AuthManager {
             // FIXME: User is not verified, send an error back for user to verify their email
             let userId = authDataResult.user.uid
             completion(userId, nil)
+        }
+    }
+    
+    func signOut(completion: @escaping (Error?) -> Void) {
+        do {
+            try Auth.auth().signOut()
+            signedInUser = nil
+            completion(nil)
+        } catch {
+            completion(error)
         }
     }
     

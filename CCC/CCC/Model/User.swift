@@ -15,6 +15,7 @@ struct User: Codable {
     var lastName: String
     var phoneNumber: String?
     var profilePhotoUrlString: String?
+    var fullName: String { "\(firstName) \(lastName)" }
     
     var dictionary: [String: Any] {
         [

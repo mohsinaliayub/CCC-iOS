@@ -15,12 +15,18 @@ class DashboardViewModel: ObservableObject {
         set { authManager.signedInUser = newValue }
     }
     
+    var profileViewModel: ProfileViewModel {
+        ProfileViewModel(authManager: authManager, mediaManager: mediaManager)
+    }
+    
     private let userManager: UserManager
     private let authManager: AuthManager
+    private let mediaManager: MediaManager
     
-    init(authManager: AuthManager, userManager: UserManager) {
+    init(authManager: AuthManager, userManager: UserManager, mediaManager: MediaManager) {
         self.authManager = authManager
         self.userManager = userManager
+        self.mediaManager = mediaManager
         
         fetchSignedInUserDetailsFromFirestore()
     }

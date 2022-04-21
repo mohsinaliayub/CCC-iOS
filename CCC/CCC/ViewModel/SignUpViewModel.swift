@@ -30,10 +30,7 @@ class SignUpViewModel: ObservableObject {
         self.authManager = authManager
         self.mediaManager = mediaManager
         self.userManager = userManager
-        email = ""
-        password = ""
-        firstName = ""
-        lastName = ""
+        email = ""; password = ""; firstName = ""; lastName = ""
     }
     
     func signUp() {

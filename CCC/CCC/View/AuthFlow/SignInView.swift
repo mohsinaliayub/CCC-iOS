@@ -45,7 +45,7 @@ struct SignInView: View {
             .padding()
         }
         .fullScreenCover(isPresented: $signInViewModel.signInSuccessful) {
-            DashboardView(dashboardViewModel: signInViewModel.dashboardViewModel)
+            MainView(dashboardViewModel: signInViewModel.dashboardViewModel)
         }
     }
 }
@@ -53,6 +53,7 @@ struct SignInView: View {
 struct SignInView_Previews: PreviewProvider {
     static var previews: some View {
         SignInView(signInViewModel: SignInViewModel(authManager: AuthManagerImp(),
-                                                    userManager: FirestoreUserManager()))
+                                                    userManager: FirestoreUserManager(),
+                                                    mediaManager: FirebaseMediaManager()))
     }
 }

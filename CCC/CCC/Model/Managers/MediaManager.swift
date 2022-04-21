@@ -8,8 +8,14 @@
 import UIKit
 import FirebaseStorage
 
+enum MediaManagerError: String, Error {
+    case uploadError = "An error occured while uploading"
+    case downloadError = "An error occured while downloading"
+}
+
 protocol MediaManager {
     func uploadProfileImage(withData: Data, for: User, completion: @escaping (String?, Error?) -> Void)
+    func downloadProfileImage(withUrl: URL, completion: @escaping (UIImage?, MediaManagerError?) -> Void)
 }
 
 class FirebaseMediaManager: MediaManager {
@@ -41,6 +47,19 @@ class FirebaseMediaManager: MediaManager {
                 
                 // Return the absolute URL
                 completion(url.absoluteString, nil)
+            }
+        }
+    }
+    
+    func downloadProfileImage(withUrl url: URL, completion: @escaping (UIImage?, MediaManagerError?) -> Void) {
+        let downloadQueue = DispatchQueue(label: "imageDownloadQueue")
+        
+        downloadQueue.async {
+            let data = try? Data(contentsOf: url)
+            if let data = data, let image = UIImage(data: data) {
+                completion(image, nil)
+            } else {
+                completion(nil, .downloadError)
             }
         }
     }
