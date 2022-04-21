@@ -28,6 +28,7 @@ struct UserDataTextField: View {
                 .frame(height: Constants.textAndSecureFieldHeight)
                 .padding()
                 .keyboardType(keyboardType)
+                .textInputAutocapitalization(keyboardType == .emailAddress ? .never : nil)
                 .overlay {
                     RoundedRectangleWithBorderAndLineWidth(cornerRadius: Constants.textFieldBorderCornerRadius,
                                                            lineWidth: Constants.textFieldBorderLineWidth)

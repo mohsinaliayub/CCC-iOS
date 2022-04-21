@@ -9,10 +9,14 @@ import Foundation
 import FirebaseCore
 import FirebaseFirestore
 
+enum FirestoreError: String, Error {
+    case recordNotFound = "Record not found in the data store."
+}
+
 protocol UserManager {
     func saveUser(user: User, completion: @escaping (Error?) -> Void)
     
-    func fetchUser(byId: String, completion: @escaping (User?, Error?) -> Void)
+    func fetchUser(byId: String, completion: @escaping (User?, FirestoreError?) -> Void)
 }
 
 class FirestoreUserManager: UserManager {
@@ -25,10 +29,10 @@ class FirestoreUserManager: UserManager {
         }
     }
     
-    func fetchUser(byId userId: String, completion: @escaping (User?, Error?) -> Void) {
+    func fetchUser(byId userId: String, completion: @escaping (User?, FirestoreError?) -> Void) {
         usersCollection.document(userId).getDocument { snapshot, error in
             guard let snapshot = snapshot, snapshot.exists, error == nil else {
-                completion(nil, error)
+                completion(nil, .recordNotFound)
                 return
             }
             

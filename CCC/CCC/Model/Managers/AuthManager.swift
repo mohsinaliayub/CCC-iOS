@@ -20,12 +20,41 @@ enum SignInError: Error {
     }
 }
 
-protocol AuthManager {
+protocol AuthManager: AnyObject {
+    var signedInUserId: String? { get }
+    var signedInUser: User? { get set }
+    
     func createUser(withEmail: String, password: String, completion: @escaping (_ userId: String?, Error?) -> Void)
     func signIn(withEmail: String, password: String, completion: @escaping (_ userId: String?, SignInError?) -> Void)
 }
 
 class AuthManagerImp: AuthManager {
+    
+    private let signedInUserKeyForUserDefaults = "signedInUser"
+    
+    var signedInUserId: String? {
+        Auth.auth().currentUser?.uid
+    }
+    
+    var signedInUser: User? {
+        get {
+            guard Auth.auth().currentUser != nil else { return nil }
+            
+            guard let jsonData = UserDefaults.standard.data(forKey: signedInUserKeyForUserDefaults),
+                  let user = try? JSONDecoder().decode(User.self, from: jsonData) else {
+                return nil
+            }
+            
+            return user
+        }
+        set {
+            guard let user = newValue, let json = try? JSONEncoder().encode(user) else {
+                return
+            }
+            
+            UserDefaults.standard.set(json, forKey: signedInUserKeyForUserDefaults)
+        }
+    }
     
     func createUser(withEmail email: String, password: String, completion: @escaping (_ userId: String?, Error?) -> Void) {
         // create a user account on Firebase

@@ -44,6 +44,9 @@ struct SignInView: View {
             }
             .padding()
         }
+        .fullScreenCover(isPresented: $signInViewModel.signInSuccessful) {
+            DashboardView(dashboardViewModel: signInViewModel.dashboardViewModel)
+        }
     }
 }
 

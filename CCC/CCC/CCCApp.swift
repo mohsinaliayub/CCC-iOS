@@ -21,10 +21,12 @@ struct CCCApp: App {
 //            let mediaManager: MediaManager = FirebaseMediaManager()
             let userManager: UserManager = FirestoreUserManager()
             
-//            SignUpView(signUpViewModel: SignUpViewModel(authManager: authManager,
-//                                                        mediaManager: mediaManager,
-//                                                        userManager: userManager))
-            SignInView(signInViewModel: SignInViewModel(authManager: authManager, userManager: userManager))
+            if authManager.signedInUser != nil {
+                DashboardView(dashboardViewModel: DashboardViewModel(authManager: authManager, userManager: userManager))
+            } else {
+                SignInView(signInViewModel: SignInViewModel(authManager: authManager, userManager: userManager))
+            }
+            
         }
     }
 }

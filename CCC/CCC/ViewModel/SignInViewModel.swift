@@ -15,12 +15,17 @@ class SignInViewModel: ObservableObject {
     @Published var isEmailValid = false
     @Published var isPasswordValid = false
     @Published var signInError: SignInError?
+    @Published var signInSuccessful = false
     
     private let authManager: AuthManager
     private let userManager: UserManager
     private var cancellable = Set<AnyCancellable>()
     private var isInputValid: Bool {
         isEmailValid && isPasswordValid
+    }
+    
+    var dashboardViewModel: DashboardViewModel {
+        DashboardViewModel(authManager: authManager, userManager: userManager)
     }
     
     init(authManager: AuthManager, userManager: UserManager) {
@@ -32,20 +37,16 @@ class SignInViewModel: ObservableObject {
     }
     
     func signIn() {
+        signInError = nil
         guard isInputValid else { return }
         
-        authManager.signIn(withEmail: email, password: password) { userId, error in
+        authManager.signIn(withEmail: email, password: password) { _, error in
             if let error = error {
                 self.signInError = error
                 return
             }
             
-            guard let userId = userId else {
-                return
-            }
-
-            // We have the userId, get user account details.
-            print(userId)
+            self.signInSuccessful = true
         }
     }
     
