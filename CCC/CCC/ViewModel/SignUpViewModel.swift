@@ -39,18 +39,22 @@ class SignUpViewModel: ObservableObject {
     func signUp() {
         // FIXME: Check whether email and password have valid values
         
-        let user = User(email: email, firstName: firstName, lastName: lastName)
-        
         // Got both email and password, now create the account
-        createUser(user, password: password)
+        createUser(withEmail: email, password: password)
     }
     
-    private func createUser(_ user: User, password: String) {
-        authManager.createUser(withEmail: user.email, password: password) { error in
+    private func createUser(withEmail email: String, password: String) {
+        authManager.createUser(withEmail: email, password: password) { userId, error in
             if let error = error {
                 print(error.localizedDescription)
                 return
             }
+            
+            guard let userId = userId else {
+                return
+            }
+            
+            let user = User(id: userId, email: email, firstName: self.firstName, lastName: self.lastName)
             
             // Upload profile image to data store
             self.uploadProfileImage(for: user)
@@ -73,8 +77,9 @@ class SignUpViewModel: ObservableObject {
             // Get the String for profile Url.
             guard let profilePhotoUrlString = profilePhotoUrlString else { return }
             
-            let userToSaveInFirestore = User(email: user.email, firstName: user.firstName, lastName: user.lastName,
-                               phoneNumber: nil, profilePhotoUrlString: profilePhotoUrlString)
+            let userToSaveInFirestore = User(id: user.id, email: user.email, firstName: user.firstName,
+                                             lastName: user.lastName, phoneNumber: nil,
+                                             profilePhotoUrlString: profilePhotoUrlString)
             
             self.saveUserInDatastore(userToSaveInFirestore)
         }

@@ -35,15 +35,15 @@ struct SignUpView: View {
                 }
                 .padding(.bottom)
                 
-                SignUpViewTextField(placeholder: String(localized: "First Name"),
+                UserDataTextField(placeholder: String(localized: "First Name"),
                                     text: $signUpViewModel.firstName,
                                     keyboardType: .namePhonePad)
-                SignUpViewTextField(placeholder: String(localized: "Last Name"),
+                UserDataTextField(placeholder: String(localized: "Last Name"),
                                     text: $signUpViewModel.lastName,
                                     keyboardType: .namePhonePad)
-                SignUpViewTextField(placeholder: String(localized: "Email"),
+                UserDataTextField(placeholder: String(localized: "Email"),
                                     text: $signUpViewModel.email, keyboardType: .emailAddress)
-                passwordField
+                UserDataSecureField(placeholder: String(localized: "Password"), password: $signUpViewModel.password)
                 
                 signUpButton
             }
@@ -73,63 +73,10 @@ struct SignUpView: View {
     }
     
     var signUpButton: some View {
-        Button {
+        AppBorderedProminentButtonWithText("Sign Up") {
             signUpViewModel.signUp()
-        } label: {
-            Text(String(localized: "Sign Up"))
-                .font(.system(.title2, design: .rounded))
-                .frame(maxWidth: .infinity)
         }
-        .buttonStyle(.borderedProminent)
-        .buttonBorderShape(.roundedRectangle(radius: Constants.textFieldBorderCornerRadius))
-        .controlSize(.large)
         .padding(.vertical)
-    }
-    
-    var passwordField: some View {
-        SecureField(String(localized: "Password"), text: $signUpViewModel.password)
-            .frame(height: Constants.textAndSecureFieldHeight)
-            .padding()
-            .overlay {
-                roundedRectangle
-            }
-    }
-    
-    var roundedRectangle: some View {
-        RoundedRectangleWithBorderAndLineWidth(cornerRadius: Constants.textFieldBorderCornerRadius,
-                                               lineWidth: Constants.textFieldBorderLineWidth)
-    }
-    
-}
-
-struct SignUpViewTextField: View {
-    
-    let placeholder: String
-    var text: Binding<String>
-    let keyboardType: UIKeyboardType
-    
-    var body: some View {
-        TextField(placeholder, text: text)
-            .frame(height: Constants.textAndSecureFieldHeight)
-            .padding()
-            .keyboardType(keyboardType)
-            .overlay {
-                RoundedRectangleWithBorderAndLineWidth(cornerRadius: Constants.textFieldBorderCornerRadius,
-                                                       lineWidth: Constants.textFieldBorderLineWidth)
-            }
-    }
-    
-}
-
-fileprivate struct RoundedRectangleWithBorderAndLineWidth: View {
-    
-    let cornerRadius: CGFloat
-    let lineWidth: CGFloat
-    let color: Color = .gray
-    
-    var body: some View {
-        RoundedRectangle(cornerRadius: cornerRadius)
-            .strokeBorder(color, lineWidth: lineWidth)
     }
     
 }

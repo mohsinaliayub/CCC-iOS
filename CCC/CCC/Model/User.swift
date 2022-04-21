@@ -15,7 +15,6 @@ struct User {
     var lastName: String
     var phoneNumber: String?
     var profilePhotoUrlString: String?
-    var isVerified = false
     
     var dictionary: [String: Any] {
         [
@@ -24,14 +23,13 @@ struct User {
             Constants.firstName: firstName,
             Constants.lastName: lastName,
             Constants.phoneNumber: phoneNumber as Any,
-            Constants.profilePhotoUrlString: profilePhotoUrlString as Any,
-            Constants.isVerified: isVerified
+            Constants.profilePhotoUrlString: profilePhotoUrlString as Any
         ]
     }
     
-    init(email: String, firstName: String, lastName: String,
+    init(id: String, email: String, firstName: String, lastName: String,
          phoneNumber: String? = nil, profilePhotoUrlString: String? = nil) {
-        self.id = UUID().uuidString
+        self.id = id
         self.email = email
         self.firstName = firstName
         self.lastName = lastName
@@ -46,7 +44,6 @@ struct User {
         static let lastName = "last_name"
         static let phoneNumber = "phone_number"
         static let profilePhotoUrlString = "profile_photo_url"
-        static let isVerified = "verified"
     }
     
 }
@@ -60,7 +57,6 @@ extension User {
         lastName = dictionary[Constants.lastName] as! String
         phoneNumber = dictionary[Constants.phoneNumber] as? String
         profilePhotoUrlString = dictionary[Constants.profilePhotoUrlString] as? String
-        isVerified = dictionary[Constants.isVerified] as! Bool
     }
     
 }
