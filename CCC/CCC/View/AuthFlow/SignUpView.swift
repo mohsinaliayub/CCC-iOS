@@ -17,8 +17,18 @@ private struct Constants {
 
 struct SignUpView: View {
     
+    private enum Form {
+        case firstName
+        case lastName
+        case email
+        case password
+        case signUp
+    }
+    
     @ObservedObject var signUpViewModel: SignUpViewModel
     @State var showPhotoOptions = false
+    @FocusState private var focused: Form?
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         ScrollView {
@@ -36,14 +46,26 @@ struct SignUpView: View {
                 .padding(.bottom)
                 
                 UserDataTextField(placeholder: String(localized: "First Name"),
-                                    text: $signUpViewModel.firstName,
-                                    keyboardType: .namePhonePad)
+                                  text: $signUpViewModel.firstName,
+                                  keyboardType: .namePhonePad)
+                .focused($focused, equals: .firstName)
+                .submitLabel(.next)
+                
                 UserDataTextField(placeholder: String(localized: "Last Name"),
-                                    text: $signUpViewModel.lastName,
-                                    keyboardType: .namePhonePad)
+                                  text: $signUpViewModel.lastName,
+                                  keyboardType: .namePhonePad)
+                .focused($focused, equals: .lastName)
+                .submitLabel(.next)
+                
                 UserDataTextField(placeholder: String(localized: "Email"),
-                                    text: $signUpViewModel.email, keyboardType: .emailAddress)
-                UserDataSecureField(placeholder: String(localized: "Password"), password: $signUpViewModel.password)
+                                  text: $signUpViewModel.email, keyboardType: .emailAddress)
+                .focused($focused, equals: .email)
+                .submitLabel(.next)
+                
+                UserDataSecureField(placeholder: String(localized: "Password"),
+                                    password: $signUpViewModel.password)
+                .focused($focused, equals: .password)
+                .submitLabel(.join)
                 
                 signUpButton
             }
@@ -52,6 +74,31 @@ struct SignUpView: View {
         .fullScreenCover(isPresented: $showPhotoOptions) {
             ImagePicker(selectedImage: $signUpViewModel.profileImage)
         }
+        .navigationBarBackButtonHidden(true)
+        .background(AppConstants.Colors.appBackgroundColor)
+        .toolbar(content: {
+            ToolbarItem(placement: .navigationBarLeading) {
+                BackButton {
+                    dismiss()
+                }
+            }
+        })
+        .onSubmit {
+            switch focused {
+            case .firstName:
+                focused = .lastName
+            case .lastName:
+                focused = .email
+            case .email:
+                focused = .password
+            case .password:
+                focused = .signUp
+            case .signUp:
+                signUpViewModel.signUp()
+            default: break
+            }
+        }
+
     }
     
     var profileImageView: some View {
@@ -73,7 +120,7 @@ struct SignUpView: View {
     }
     
     var signUpButton: some View {
-        AppBorderedProminentButtonWithText("Sign Up") {
+        AppBorderedProminentButtonWithText("Join now") {
             signUpViewModel.signUp()
         }
         .padding(.vertical)

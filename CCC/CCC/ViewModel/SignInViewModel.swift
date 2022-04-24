@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class SignInViewModel: ObservableObject {
     
@@ -27,6 +28,10 @@ class SignInViewModel: ObservableObject {
     
     var dashboardViewModel: DashboardViewModel {
         DashboardViewModel(authManager: authManager, userManager: userManager, mediaManager: mediaManager)
+    }
+    
+    var signUpViewModel: SignUpViewModel {
+        SignUpViewModel(authManager: authManager, mediaManager: mediaManager, userManager: userManager)
     }
     
     init(authManager: AuthManager, userManager: UserManager, mediaManager: MediaManager) {
@@ -68,6 +73,26 @@ class SignInViewModel: ObservableObject {
             }
             .assign(to: \.isPasswordValid, on: self)
             .store(in: &cancellable)
+    }
+    
+    func submit(form: inout Form?) {
+        switch form {
+        case .email:
+            form = .password
+        case .password:
+            form = .signIn
+            fallthrough
+        case .signIn:
+            signIn()
+        default:
+            break
+        }
+    }
+    
+    enum Form {
+        case email
+        case password
+        case signIn
     }
     
 }

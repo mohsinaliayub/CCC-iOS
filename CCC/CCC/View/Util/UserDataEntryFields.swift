@@ -22,6 +22,8 @@ struct UserDataTextField: View {
     var isValid = true
     var invalidText = ""
     
+    @FocusState var focused: Bool
+    
     var body: some View {
         VStack(alignment: .leading) {
             TextField(placeholder, text: $text)
@@ -29,9 +31,13 @@ struct UserDataTextField: View {
                 .padding()
                 .keyboardType(keyboardType)
                 .textInputAutocapitalization(keyboardType == .emailAddress ? .never : nil)
+                .focused($focused)
                 .overlay {
                     RoundedRectangleWithBorderAndLineWidth(cornerRadius: Constants.textFieldBorderCornerRadius,
                                                            lineWidth: Constants.textFieldBorderLineWidth)
+                    .onTapGesture {
+                        focused = true
+                    }
                 }
             
             if !isValid && !text.isEmpty {
@@ -49,14 +55,19 @@ struct UserDataSecureField: View {
     
     let placeholder: String
     @Binding var password: String
+    @FocusState var focused: Bool
     
     var body: some View {
         SecureField(placeholder, text: $password)
             .frame(height: Constants.textAndSecureFieldHeight)
             .padding()
+            .focused($focused)
             .overlay {
                 RoundedRectangleWithBorderAndLineWidth(cornerRadius: Constants.textFieldBorderCornerRadius,
                                                        lineWidth: Constants.textFieldBorderLineWidth)
+                .onTapGesture {
+                    focused = true
+                }
             }
     }
 }
@@ -77,7 +88,7 @@ fileprivate struct RoundedRectangleWithBorderAndLineWidth: View {
 struct UserDataEntryFields_Previews: PreviewProvider {
     static var previews: some View {
         UserDataTextField(placeholder: "Email", text: .constant(""), keyboardType: .emailAddress, isValid: false, invalidText: "Please provide a valid email address.")
-            .previewLayout(.sizeThatFits)
+            
         UserDataSecureField(placeholder: "Password", password: .constant(""))
             .previewLayout(.sizeThatFits)
     }

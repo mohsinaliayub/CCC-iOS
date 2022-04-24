@@ -34,6 +34,7 @@
 		424173CE280EA96600633D4E /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424173CD280EA96600633D4E /* UserManager.swift */; };
 		424173D1280F255600633D4E /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424173D0280F255600633D4E /* ImagePickerView.swift */; };
 		424173D3280F348000633D4E /* MediaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424173D2280F348000633D4E /* MediaManager.swift */; };
+		42941A712815E9AC00ED80D2 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42941A702815E9AC00ED80D2 /* BackButton.swift */; };
 		42E498CF2806C18C00A8842B /* CCCApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E498CE2806C18C00A8842B /* CCCApp.swift */; };
 		42E498D12806C18C00A8842B /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E498D02806C18C00A8842B /* SignUpView.swift */; };
 		42E498D32806C19000A8842B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42E498D22806C19000A8842B /* Assets.xcassets */; };
@@ -66,6 +67,7 @@
 		424173CD280EA96600633D4E /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		424173D0280F255600633D4E /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		424173D2280F348000633D4E /* MediaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaManager.swift; sourceTree = "<group>"; };
+		42941A702815E9AC00ED80D2 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		42E498CB2806C18C00A8842B /* CCC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CCC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42E498CE2806C18C00A8842B /* CCCApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCCApp.swift; sourceTree = "<group>"; };
 		42E498D02806C18C00A8842B /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				424173D0280F255600633D4E /* ImagePickerView.swift */,
 				422FA6C62811568700CFEE77 /* AppButtons.swift */,
 				422FA6CF281168D000CFEE77 /* RequirementTextWithIcon.swift */,
+				42941A702815E9AC00ED80D2 /* BackButton.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				424173D1280F255600633D4E /* ImagePickerView.swift in Sources */,
 				422FA6E32811B9A000CFEE77 /* AppConstants.swift in Sources */,
 				42E498CF2806C18C00A8842B /* CCCApp.swift in Sources */,
+				42941A712815E9AC00ED80D2 /* BackButton.swift in Sources */,
 				422FA6D328116CF800CFEE77 /* EmailValidator.swift in Sources */,
 				424173CB280E9E8300633D4E /* SignUpViewModel.swift in Sources */,
 				424173C9280E980000633D4E /* User.swift in Sources */,

@@ -39,17 +39,17 @@ struct UserDetailsView: View {
         HStack {
             CircularImageView(image: profileViewModel.profileImage,
                               placeholderSystemImageName: profileViewModel.profileImagePlaceholder,
-                              imageHeight: 100, imageWidth: 100)
+                              imageHeight: 90, imageWidth: 90)
             
             VStack(alignment: .leading) {
                 Text(profileViewModel.signedInUser?.fullName ?? "Full Name")
-                    .font(.system(.title, design: .rounded))
+                    .font(.system(size: 30, weight: .regular, design: .rounded))
                 
                 Text(profileViewModel.signedInUser?.email ?? "email@email.com")
                     .foregroundColor(.secondary)
                     .font(.system(.callout, design: .rounded))
             }
-            .padding(.leading, 12)
+            .padding(.all, 12)
             
             Spacer()
         }

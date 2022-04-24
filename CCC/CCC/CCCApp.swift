@@ -12,6 +12,15 @@ import Firebase
 struct CCCApp: App {
     
     init() {
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.backgroundColor = .clear
+        navBarAppearance.backgroundEffect = .none
+        navBarAppearance.shadowColor = .clear
+        
+        UINavigationBar.appearance().standardAppearance = navBarAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
+        UINavigationBar.appearance().compactAppearance = navBarAppearance
+        
         FirebaseApp.configure()
     }
     
