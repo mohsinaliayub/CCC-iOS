@@ -31,7 +31,7 @@ struct CCCApp: App {
             let userManager: UserManager = FirestoreUserManager()
             
             if authManager.signedInUser != nil {
-                MainView(dashboardViewModel: DashboardViewModel(authManager: authManager,
+                MainView(dashboardViewModel: MainViewModel(authManager: authManager,
                                                                 userManager: userManager,
                                                                 mediaManager: mediaManager))
             } else {

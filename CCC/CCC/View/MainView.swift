@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     
-    @ObservedObject var dashboardViewModel: DashboardViewModel
+    @ObservedObject var dashboardViewModel: MainViewModel
     
     var body: some View {
         TabView {
@@ -42,7 +42,7 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(dashboardViewModel: DashboardViewModel(authManager: AuthManagerImp(),
+        MainView(dashboardViewModel: MainViewModel(authManager: AuthManagerImp(),
                                                         userManager: FirestoreUserManager(),
                                                         mediaManager: FirebaseMediaManager()))
     }

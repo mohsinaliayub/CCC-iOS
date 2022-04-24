@@ -1,5 +1,5 @@
 //
-//  DashboardViewModel.swift
+//  MainViewModel.swift
 //  CCC
 //
 //  Created by Mohsin Ali Ayub on 21.04.22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class DashboardViewModel: ObservableObject {
+class MainViewModel: ObservableObject {
     
     private let signedInUserKey = "signedInUser"
     var signedInUser: User? {

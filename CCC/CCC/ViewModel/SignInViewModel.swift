@@ -26,8 +26,8 @@ class SignInViewModel: ObservableObject {
         isEmailValid && isPasswordValid
     }
     
-    var dashboardViewModel: DashboardViewModel {
-        DashboardViewModel(authManager: authManager, userManager: userManager, mediaManager: mediaManager)
+    var dashboardViewModel: MainViewModel {
+        MainViewModel(authManager: authManager, userManager: userManager, mediaManager: mediaManager)
     }
     
     var signUpViewModel: SignUpViewModel {

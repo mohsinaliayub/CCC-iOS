@@ -15,7 +15,7 @@
 		422FA6D0281168D000CFEE77 /* RequirementTextWithIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422FA6CF281168D000CFEE77 /* RequirementTextWithIcon.swift */; };
 		422FA6D328116CF800CFEE77 /* EmailValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422FA6D228116CF800CFEE77 /* EmailValidator.swift */; };
 		422FA6D528116F0E00CFEE77 /* PasswordValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422FA6D428116F0E00CFEE77 /* PasswordValidator.swift */; };
-		422FA6D7281193DF00CFEE77 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422FA6D6281193DF00CFEE77 /* DashboardViewModel.swift */; };
+		422FA6D7281193DF00CFEE77 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422FA6D6281193DF00CFEE77 /* MainViewModel.swift */; };
 		422FA6D92811991A00CFEE77 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422FA6D82811991A00CFEE77 /* MainView.swift */; };
 		422FA6DB2811B4BD00CFEE77 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422FA6DA2811B4BD00CFEE77 /* HomeView.swift */; };
 		422FA6DD2811B54800CFEE77 /* StudentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422FA6DC2811B54800CFEE77 /* StudentsView.swift */; };
@@ -51,7 +51,7 @@
 		422FA6CF281168D000CFEE77 /* RequirementTextWithIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequirementTextWithIcon.swift; sourceTree = "<group>"; };
 		422FA6D228116CF800CFEE77 /* EmailValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidator.swift; sourceTree = "<group>"; };
 		422FA6D428116F0E00CFEE77 /* PasswordValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordValidator.swift; sourceTree = "<group>"; };
-		422FA6D6281193DF00CFEE77 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
+		422FA6D6281193DF00CFEE77 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		422FA6D82811991A00CFEE77 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		422FA6DA2811B4BD00CFEE77 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		422FA6DC2811B54800CFEE77 /* StudentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentsView.swift; sourceTree = "<group>"; };
@@ -201,7 +201,7 @@
 			children = (
 				424173CA280E9E8300633D4E /* SignUpViewModel.swift */,
 				422FA6CB28115B2500CFEE77 /* SignInViewModel.swift */,
-				422FA6D6281193DF00CFEE77 /* DashboardViewModel.swift */,
+				422FA6D6281193DF00CFEE77 /* MainViewModel.swift */,
 				422FA6E42811BBB300CFEE77 /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
@@ -298,7 +298,7 @@
 				422FA6D0281168D000CFEE77 /* RequirementTextWithIcon.swift in Sources */,
 				422FA6DD2811B54800CFEE77 /* StudentsView.swift in Sources */,
 				424173CE280EA96600633D4E /* UserManager.swift in Sources */,
-				422FA6D7281193DF00CFEE77 /* DashboardViewModel.swift in Sources */,
+				422FA6D7281193DF00CFEE77 /* MainViewModel.swift in Sources */,
 				422FA6DF2811B56100CFEE77 /* ResultsView.swift in Sources */,
 				422FA6D528116F0E00CFEE77 /* PasswordValidator.swift in Sources */,
 				424173C7280E965A00633D4E /* AuthManager.swift in Sources */,
