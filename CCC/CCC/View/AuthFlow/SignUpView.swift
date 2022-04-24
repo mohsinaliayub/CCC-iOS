@@ -27,7 +27,6 @@ struct SignUpView: View {
     
     @ObservedObject var signUpViewModel: SignUpViewModel
     @State var showPhotoOptions = false
-    @FocusState private var focused: Form?
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -45,28 +44,7 @@ struct SignUpView: View {
                 }
                 .padding(.bottom)
                 
-                UserDataTextField(placeholder: String(localized: "First Name"),
-                                  text: $signUpViewModel.firstName,
-                                  keyboardType: .namePhonePad)
-                .focused($focused, equals: .firstName)
-                .submitLabel(.next)
-                
-                UserDataTextField(placeholder: String(localized: "Last Name"),
-                                  text: $signUpViewModel.lastName,
-                                  keyboardType: .namePhonePad)
-                .focused($focused, equals: .lastName)
-                .submitLabel(.next)
-                
-                UserDataTextField(placeholder: String(localized: "Email"),
-                                  text: $signUpViewModel.email, keyboardType: .emailAddress)
-                .focused($focused, equals: .email)
-                .submitLabel(.next)
-                
-                UserDataSecureField(placeholder: String(localized: "Password"),
-                                    password: $signUpViewModel.password)
-                .focused($focused, equals: .password)
-                .submitLabel(.join)
-                
+                FormFields(signUpViewModel: signUpViewModel)
                 signUpButton
             }
             .padding()
@@ -83,22 +61,6 @@ struct SignUpView: View {
                 }
             }
         })
-        .onSubmit {
-            switch focused {
-            case .firstName:
-                focused = .lastName
-            case .lastName:
-                focused = .email
-            case .email:
-                focused = .password
-            case .password:
-                focused = .signUp
-            case .signUp:
-                signUpViewModel.signUp()
-            default: break
-            }
-        }
-
     }
     
     var profileImageView: some View {
@@ -120,10 +82,47 @@ struct SignUpView: View {
     }
     
     var signUpButton: some View {
-        AppBorderedProminentButtonWithText("Join now") {
+        Button(String(localized: "Join now"), action: {
             signUpViewModel.signUp()
-        }
+        })
         .padding(.vertical)
+        .buttonStyle(GradientBackgroundButtonStyle())
+    }
+    
+}
+
+private struct FormFields: View {
+    
+    @ObservedObject var signUpViewModel: SignUpViewModel
+    @FocusState private var focused: SignUpViewModel.Form?
+    
+    var body: some View {
+        VStack {
+            UserDataTextField(placeholder: String(localized: "First Name"),
+                              text: $signUpViewModel.firstName,
+                              keyboardType: .namePhonePad)
+            .focused($focused, equals: .firstName)
+            .submitLabel(.next)
+            
+            UserDataTextField(placeholder: String(localized: "Last Name"),
+                              text: $signUpViewModel.lastName,
+                              keyboardType: .namePhonePad)
+            .focused($focused, equals: .lastName)
+            .submitLabel(.next)
+            
+            UserDataTextField(placeholder: String(localized: "Email"),
+                              text: $signUpViewModel.email, keyboardType: .emailAddress)
+            .focused($focused, equals: .email)
+            .submitLabel(.next)
+            
+            UserDataSecureField(placeholder: String(localized: "Password"),
+                                password: $signUpViewModel.password)
+            .focused($focused, equals: .password)
+            .submitLabel(.join)
+        }
+        .onSubmit {
+            signUpViewModel.submit(form: &focused)
+        }
     }
     
 }

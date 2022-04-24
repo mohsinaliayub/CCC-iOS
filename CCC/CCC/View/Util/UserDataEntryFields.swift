@@ -22,8 +22,6 @@ struct UserDataTextField: View {
     var isValid = true
     var invalidText = ""
     
-    @FocusState var focused: Bool
-    
     var body: some View {
         VStack(alignment: .leading) {
             TextField(placeholder, text: $text)
@@ -31,13 +29,9 @@ struct UserDataTextField: View {
                 .padding()
                 .keyboardType(keyboardType)
                 .textInputAutocapitalization(keyboardType == .emailAddress ? .never : nil)
-                .focused($focused)
                 .overlay {
                     RoundedRectangleWithBorderAndLineWidth(cornerRadius: Constants.textFieldBorderCornerRadius,
                                                            lineWidth: Constants.textFieldBorderLineWidth)
-                    .onTapGesture {
-                        focused = true
-                    }
                 }
             
             if !isValid && !text.isEmpty {
@@ -55,19 +49,14 @@ struct UserDataSecureField: View {
     
     let placeholder: String
     @Binding var password: String
-    @FocusState var focused: Bool
     
     var body: some View {
         SecureField(placeholder, text: $password)
             .frame(height: Constants.textAndSecureFieldHeight)
             .padding()
-            .focused($focused)
             .overlay {
                 RoundedRectangleWithBorderAndLineWidth(cornerRadius: Constants.textFieldBorderCornerRadius,
                                                        lineWidth: Constants.textFieldBorderLineWidth)
-                .onTapGesture {
-                    focused = true
-                }
             }
     }
 }

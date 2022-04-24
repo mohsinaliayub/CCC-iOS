@@ -10,6 +10,13 @@ import UIKit
 
 class SignUpViewModel: ObservableObject {
     
+    enum Form {
+        case firstName
+        case lastName
+        case email
+        case password
+    }
+    
     let profileImagePlaceholder = "person.crop.circle"
     
     private let authManager: AuthManager
@@ -92,6 +99,22 @@ class SignUpViewModel: ObservableObject {
             
             // Show a message that the sign up is successful.
             self.signUpSuccessful = true
+        }
+    }
+    
+    func submit(form: inout Form?) {
+        switch form {
+        case .firstName:
+            form = .lastName
+        case .lastName:
+            form = .email
+        case .email:
+            form = .password
+        case .password:
+            form = nil
+            signUp()
+        default:
+            break
         }
     }
     
