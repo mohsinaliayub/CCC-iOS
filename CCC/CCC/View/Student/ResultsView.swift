@@ -14,7 +14,7 @@ struct ResultsView: View {
     var body: some View {
         List(resultsViewModel.results, id: \.id) { result in
             ZStack {
-                NavigationLink(destination: ResultDetailsView()) {
+                NavigationLink(destination: ResultDetailsView(result: result)) {
                     EmptyView()
                 }
                 .opacity(0)
@@ -22,9 +22,7 @@ struct ResultsView: View {
                 ResultInfoBasic(result: result)
             }
         }
-        .task {
-            resultsViewModel.fetchResults()
-        }
+        .background(AppConstants.Colors.appBackgroundColor)
     }
 }
 

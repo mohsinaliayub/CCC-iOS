@@ -19,15 +19,18 @@ struct StudentDetailView: View {
                 Text("Detail").tag(0)
                 Text("Results").tag(1)
             }
+            .background(AppConstants.Colors.appBackgroundColor)
             .pickerStyle(SegmentedPickerStyle())
             .padding()
             
             if segment == 0 {
                 StudentInfoView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(AppConstants.Colors.appBackgroundColor)
             } else if segment == 1 {
                 ResultsView(resultsViewModel: studentDetailViewModel.resultsViewModel)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(AppConstants.Colors.appBackgroundColor)
             } else {
                 Spacer()
             }
@@ -37,7 +40,11 @@ struct StudentDetailView: View {
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                BackButton { dismiss() }
+                Button {
+                    dismiss()
+                } label: {
+                    Label("", systemImage: "chevron.left")
+                }
             }
         }
     }
@@ -53,7 +60,8 @@ struct StudentInfoView: View {
 
 struct StudentDetail_Previews: PreviewProvider {
     static var previews: some View {
-        let studentDetailVM = StudentDetailViewModel(student: Student(from: [:]),
+        let student = Student(parentId: "", firstName: "John", lastName: "Doe", rollNumber: "1636", cnic: "3720148895404", photoUrlString: "", currentClass: "12")
+        let studentDetailVM = StudentDetailViewModel(student: student,
                                                      resultsManager: FirebaseDbResultsManager())
         StudentDetailView(studentDetailViewModel: studentDetailVM)
     }

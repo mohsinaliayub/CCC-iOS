@@ -40,6 +40,10 @@ class ResultsViewModel: ObservableObject {
     init(student: Student, resultsManager: ResultsManager) {
         self.resultsManager = resultsManager
         self.student = student
+        
+        if results.isEmpty {
+            fetchResults()
+        }
     }
     
     func fetchResults() {

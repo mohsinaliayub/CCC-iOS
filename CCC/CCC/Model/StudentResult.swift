@@ -82,10 +82,12 @@ extension StudentResult {
     
 }
 
-struct SubjectResult {
+struct SubjectResult: Identifiable {
     let subjectName: String
     let totalMarks: Int
     let obtainedMarks: Int
+    
+    var id: UUID { UUID() }
     
     var dictionary: [String: Any] {
         [
