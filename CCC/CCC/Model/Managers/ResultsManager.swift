@@ -8,9 +8,11 @@
 import Foundation
 import FirebaseDatabase
 
+typealias StudentId = String
+
 protocol ResultsManager {
     func addResult(_: StudentResult, completion: @escaping (Error?) -> Void)
-    func fetchResults(for: String, completion: @escaping ([StudentResult], Error?) -> Void)
+    func fetchResults(for: StudentId, withStartTimestamp: Int?, andLimit: UInt, completion: @escaping ([StudentResult], Error?) -> Void)
 }
 
 class FirebaseDbResultsManager: ResultsManager {
@@ -30,9 +32,44 @@ class FirebaseDbResultsManager: ResultsManager {
         }
     }
     
-    func fetchResults(for studentId: String, completion: @escaping ([StudentResult], Error?) -> Void) {
+    func fetchResults(for studentId: StudentId, withStartTimestamp startTimestamp: Int?, andLimit limit: UInt,
+                      completion: @escaping ([StudentResult], Error?) -> Void) {
+        let fetchResultsDbRef: DatabaseQuery
+        if let timestamp = startTimestamp {
+            fetchResultsDbRef = databaseQuery(withTimestamp: timestamp, studentId: studentId, and: limit)
+        } else {
+            fetchResultsDbRef = databaseQuery(with: studentId, and: limit)
+        }
         
+        fetchResultsDbRef.observeSingleEvent(of: .value) { snapshot in
+            var results = [StudentResult]()
+            
+            for item in snapshot.children.allObjects as! [DataSnapshot] {
+                guard let resultDict = item.value as? [String: Any] else { continue }
+                
+                let result = StudentResult(from: resultDict)
+                results.append(result)
+            }
+            
+            completion(results, nil)
+        }
     }
     
+    private func databaseQuery(withTimestamp timestamp: Int, studentId: StudentId, and limit: UInt) -> DatabaseQuery {
+        databaseReference
+            .queryOrdered(byChild: StudentResult.Key.studentId)
+            .queryEqual(toValue: studentId)
+//            .queryOrdered(byChild: StudentResult.Key.timestamp)
+//            .queryEqual(toValue: timestamp - 1)
+            .queryLimited(toLast: limit)
+    }
+    
+    private func databaseQuery(with studentId: StudentId, and limit: UInt) -> DatabaseQuery {
+        databaseReference
+            .queryOrdered(byChild: StudentResult.Key.studentId)
+            .queryEqual(toValue: studentId)
+//            .queryOrdered(byChild: StudentResult.Key.timestamp)
+            .queryLimited(toLast: limit)
+    }
     
 }

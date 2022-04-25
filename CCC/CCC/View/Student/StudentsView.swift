@@ -14,7 +14,7 @@ struct StudentsView: View {
     var body: some View {
         List(studentsViewModel.students, id: \.id) { student in
             ZStack {
-                NavigationLink(destination: StudentDetailView()) {
+                NavigationLink(destination: StudentDetailView(studentDetailViewModel: studentsViewModel.getStudentDetailsViewModel(student: student))) {
                     EmptyView()
                 }
                 .opacity(0)

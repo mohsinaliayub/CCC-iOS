@@ -45,6 +45,8 @@
 		4252FB702816D23400456206 /* ResultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252FB6F2816D23400456206 /* ResultsManager.swift */; };
 		4252FB722816D73D00456206 /* ResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252FB712816D73D00456206 /* ResultsViewModel.swift */; };
 		4252FB752816D82000456206 /* StudentDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252FB742816D82000456206 /* StudentDetail.swift */; };
+		4252FB772816F56200456206 /* StudentDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252FB762816F56200456206 /* StudentDetailViewModel.swift */; };
+		4252FB792817030900456206 /* ResultDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4252FB782817030900456206 /* ResultDetailsView.swift */; };
 		42E498CF2806C18C00A8842B /* CCCApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E498CE2806C18C00A8842B /* CCCApp.swift */; };
 		42E498D12806C18C00A8842B /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E498D02806C18C00A8842B /* SignUpView.swift */; };
 		42E498D32806C19000A8842B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42E498D22806C19000A8842B /* Assets.xcassets */; };
@@ -86,6 +88,8 @@
 		4252FB6F2816D23400456206 /* ResultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsManager.swift; sourceTree = "<group>"; };
 		4252FB712816D73D00456206 /* ResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewModel.swift; sourceTree = "<group>"; };
 		4252FB742816D82000456206 /* StudentDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentDetail.swift; sourceTree = "<group>"; };
+		4252FB762816F56200456206 /* StudentDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentDetailViewModel.swift; sourceTree = "<group>"; };
+		4252FB782817030900456206 /* ResultDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultDetailsView.swift; sourceTree = "<group>"; };
 		42E498CB2806C18C00A8842B /* CCC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CCC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42E498CE2806C18C00A8842B /* CCCApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCCApp.swift; sourceTree = "<group>"; };
 		42E498D02806C18C00A8842B /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -225,6 +229,7 @@
 				422FA6DA2811B4BD00CFEE77 /* HomeView.swift */,
 				422FA6E02811B57300CFEE77 /* ProfileView.swift */,
 				4252FB5828169FAE00456206 /* EditStudentView.swift */,
+				4252FB782817030900456206 /* ResultDetailsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -239,6 +244,7 @@
 				4252FB5A2816A14400456206 /* EditStudentViewModel.swift */,
 				4252FB6B2816B13E00456206 /* StudentsViewModel.swift */,
 				4252FB712816D73D00456206 /* ResultsViewModel.swift */,
+				4252FB762816F56200456206 /* StudentDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -342,9 +348,11 @@
 				4252FB722816D73D00456206 /* ResultsViewModel.swift in Sources */,
 				422FA6DF2811B56100CFEE77 /* ResultsView.swift in Sources */,
 				422FA6D528116F0E00CFEE77 /* PasswordValidator.swift in Sources */,
+				4252FB792817030900456206 /* ResultDetailsView.swift in Sources */,
 				424173C7280E965A00633D4E /* AuthManager.swift in Sources */,
 				42E498E12806C33C00A8842B /* Student.swift in Sources */,
 				422FA6C52811543700CFEE77 /* UserDataEntryFields.swift in Sources */,
+				4252FB772816F56200456206 /* StudentDetailViewModel.swift in Sources */,
 				422FA6D92811991A00CFEE77 /* MainView.swift in Sources */,
 				422FA6E72811C58D00CFEE77 /* CircularImageView.swift in Sources */,
 				422FA6C32811535E00CFEE77 /* SignInView.swift in Sources */,

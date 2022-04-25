@@ -18,11 +18,13 @@ class StudentsViewModel: ObservableObject {
     private let studentsManager: StudentsManager
     private let authManager: AuthManager
     private let mediaManager: MediaManager
+    private let resultsManager: ResultsManager
     
     init(authManager: AuthManager, studentsManager: StudentsManager, mediaManager: MediaManager) {
         self.studentsManager = studentsManager
         self.authManager = authManager
         self.mediaManager = mediaManager
+        self.resultsManager = FirebaseDbResultsManager()
     }
     
     func fetchStudents() {
@@ -49,6 +51,10 @@ class StudentsViewModel: ObservableObject {
             
             completion(nil)
         }
+    }
+    
+    func getStudentDetailsViewModel(student: Student) -> StudentDetailViewModel {
+        StudentDetailViewModel(student: student, resultsManager: resultsManager)
     }
     
 }
