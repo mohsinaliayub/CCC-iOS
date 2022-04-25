@@ -22,15 +22,15 @@ struct Student {
     var fullName: String { "\(firstName) \(lastName)" }
     var dictionary: [String: Any] {
         [
-            "id": id,
-            "parent_id": parentId,
-            "first_name": firstName,
-            "last_name": lastName,
-            "roll_number": rollNumber,
-            "cnic": cnic,
-            "photo_url": photoUrlString,
-            "hast_left": hasLeft,
-            "current_class": currentClass
+            Key.id: id,
+            Key.parentId: parentId,
+            Key.firstName: firstName,
+            Key.lastName: lastName,
+            Key.rollNumber: rollNumber,
+            Key.cnic: cnic,
+            Key.photoUrl: photoUrlString,
+            Key.hasLeft: hasLeft,
+            Key.currentClass: currentClass
         ]
     }
     

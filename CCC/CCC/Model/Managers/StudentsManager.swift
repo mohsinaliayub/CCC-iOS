@@ -8,9 +8,9 @@
 import Foundation
 import FirebaseDatabase
 
+typealias ParentId = String
+
 protocol StudentsManager {
-    typealias ParentId = String
-    
     func addStudent(_ student: Student, for parent: ParentId, completion: @escaping (Error?) -> Void)
     func fetchStudents(for parent: ParentId, completion: @escaping ([Student], Error?) -> Void)
 }
@@ -31,7 +31,7 @@ class FirebaseDbStudentManager: StudentsManager {
     }
     
     func fetchStudents(for parent: ParentId, completion: @escaping ([Student], Error?) -> Void) {
-        let fetchStudentsDbRef = databaseReference//.queryEqual(toValue: parent, childKey: Student.Key.parentId)
+        let fetchStudentsDbRef = databaseReference.queryOrdered(byChild: Student.Key.parentId).queryEqual(toValue: parent)
         
         fetchStudentsDbRef.observeSingleEvent(of: .value) { snapshot in
             var students = [Student]()
