@@ -27,12 +27,6 @@ struct MainView: View {
             }
             .tag(1)
             
-            ResultsView()
-                .tabItem {
-                    Label(String(localized: "Results"), systemImage: "note.text")
-                }
-                .tag(2)
-            
             ProfileView(profileViewModel: mainViewModel.profileViewModel)
                 .tabItem {
                     Label(String(localized: "Profile"), systemImage: "person")

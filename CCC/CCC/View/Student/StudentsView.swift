@@ -13,7 +13,14 @@ struct StudentsView: View {
     
     var body: some View {
         List(studentsViewModel.students, id: \.id) { student in
-            StudentBasicInfoView(student: student, studentsViewModel: studentsViewModel)
+            ZStack {
+                NavigationLink(destination: StudentDetailView()) {
+                    EmptyView()
+                }
+                .opacity(0)
+                
+                StudentBasicInfoView(student: student, studentsViewModel: studentsViewModel)
+            }
         }
         .task {
             studentsViewModel.fetchStudents()
@@ -37,7 +44,7 @@ struct StudentBasicInfoView: View {
     @State private var image: UIImage?
     
     var body: some View {
-        HStack {
+        HStack(alignment: .top) {
             CircularImageView(image: image, placeholderSystemImageName: "person.crop.circle",
                               imageHeight: 90, imageWidth: 90)
             .task {

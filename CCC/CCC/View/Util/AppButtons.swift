@@ -11,9 +11,9 @@ fileprivate struct Constants {
     static let buttonBackgroundCornerRadius: CGFloat = 10
     static let buttonInnerPadding: CGFloat = 4
     
-    static let backButtonCornerRadius: CGFloat = 25
-    static let backButtonWidth: CGFloat = 50
-    static let backButtonHeight: CGFloat = 50
+    static let backButtonCornerRadius: CGFloat = 20
+    static let backButtonWidth: CGFloat = 40
+    static let backButtonHeight: CGFloat = 40
 }
 
 struct AppBorderedProminentButtonWithText: View {
@@ -74,7 +74,7 @@ struct BackButton: View {
             action()
         } label: {
             Image(systemName: systemIconName)
-                .font(.largeTitle)
+                .font(.title)
                 .foregroundColor(foregroundColor)
                 .frame(width: Constants.backButtonHeight, height: Constants.backButtonHeight)
                 .background(backgroundColor)

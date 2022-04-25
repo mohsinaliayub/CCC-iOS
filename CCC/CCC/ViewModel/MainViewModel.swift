@@ -24,6 +24,8 @@ class MainViewModel: ObservableObject {
                           mediaManager: mediaManager)
     }
     
+    
+    
     private let userManager: UserManager
     private let authManager: AuthManager
     private let mediaManager: MediaManager
