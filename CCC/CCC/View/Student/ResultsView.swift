@@ -19,7 +19,7 @@ struct ResultsView: View {
                 }
                 .opacity(0)
                 
-                ResultInfoBasic(result: result, resultsViewModel: resultsViewModel)
+                ResultInfoBasic(result: result)
             }
         }
         .task {
@@ -31,16 +31,16 @@ struct ResultsView: View {
 struct ResultInfoBasic: View {
     
     let result: StudentResult
-    @ObservedObject var resultsViewModel: ResultsViewModel
     
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 0) {
                 Text(result.termName)
                     .font(.system(.title, design: .rounded))
-//                Text(result.remarks)
-//                    .font(.system(.title3, design: .rounded))
-//                    .foregroundColor(result.passed ? .green : .red)
+                Text(result.remarks)
+                    .font(.system(.title3, design: .rounded))
+                    .fontWeight(.semibold)
+                    .foregroundColor(.gray)
                 HStack {
                     Text("Marks:")
                         .font(.system(.body, design: .rounded))
@@ -53,7 +53,7 @@ struct ResultInfoBasic: View {
             
             Spacer()
             
-            Text(resultsViewModel.formatDate(result.timestamp))
+            Text(result.timestamp.shortDateString)
                 .font(.system(.callout, design: .rounded))
                 .foregroundColor(.secondary)
         }
@@ -67,7 +67,7 @@ struct ResultsView_Previews: PreviewProvider {
         
         ResultsView(resultsViewModel: resultsVM)
         
-        ResultInfoBasic(result: resultsVM.testStudentResult, resultsViewModel: resultsVM)
+        ResultInfoBasic(result: resultsVM.testStudentResult)
             .previewLayout(.sizeThatFits)
     }
 }

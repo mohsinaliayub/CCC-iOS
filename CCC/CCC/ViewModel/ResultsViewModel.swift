@@ -49,7 +49,14 @@ class ResultsViewModel: ObservableObject {
                 return
             }
             
+            // Sort the results by latest
             let sortedResults = results.sorted { $0.timestamp > $1.timestamp }
+            
+            // Save the last result's timestamp to retrieve new items
+            if let lastResult = sortedResults.last {
+                let timestamp = Int(lastResult.timestamp.timeIntervalSince1970)
+                self.lastResultTimeStamp = timestamp
+            }
             self.results = sortedResults
         }
     }
@@ -63,14 +70,6 @@ class ResultsViewModel: ObservableObject {
             
             print("Result posted successfully!")
         }
-    }
-    
-    func formatDate(_ date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
-        dateFormatter.locale = Locale.current
-        
-        return dateFormatter.string(from: date)
     }
     
 }
