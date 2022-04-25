@@ -10,6 +10,10 @@ import SwiftUI
 fileprivate struct Constants {
     static let buttonBackgroundCornerRadius: CGFloat = 10
     static let buttonInnerPadding: CGFloat = 4
+    
+    static let backButtonCornerRadius: CGFloat = 25
+    static let backButtonWidth: CGFloat = 50
+    static let backButtonHeight: CGFloat = 50
 }
 
 struct AppBorderedProminentButtonWithText: View {
@@ -54,6 +58,28 @@ struct GradientBackgroundButtonStyle: ButtonStyle {
             .controlSize(.large)
             .cornerRadius(Constants.buttonBackgroundCornerRadius)
             .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
+    }
+}
+
+struct BackButton: View {
+    
+    var action: () -> Void
+    
+    var systemIconName = "chevron.left"
+    var backgroundColor: Color = .white
+    var foregroundColor: Color = .black
+    
+    var body: some View {
+        Button {
+            action()
+        } label: {
+            Image(systemName: systemIconName)
+                .font(.largeTitle)
+                .foregroundColor(foregroundColor)
+                .frame(width: Constants.backButtonHeight, height: Constants.backButtonHeight)
+                .background(backgroundColor)
+                .clipShape(RoundedRectangle(cornerRadius: Constants.backButtonCornerRadius))
+        }
     }
 }
 

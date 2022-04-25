@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     
-    @ObservedObject var dashboardViewModel: MainViewModel
+    @ObservedObject var mainViewModel: MainViewModel
     
     var body: some View {
         TabView {
@@ -19,11 +19,13 @@ struct MainView: View {
                 }
                 .tag(0)
             
-            StudentsView()
-                .tabItem {
-                    Label(String(localized: "Students"), systemImage: "list.bullet")
-                }
-                .tag(1)
+            NavigationView {
+                StudentsView(studentsViewModel: mainViewModel.studentsViewModel)
+            }
+            .tabItem {
+                Label(String(localized: "Students"), systemImage: "list.bullet")
+            }
+            .tag(1)
             
             ResultsView()
                 .tabItem {
@@ -31,7 +33,7 @@ struct MainView: View {
                 }
                 .tag(2)
             
-            ProfileView(profileViewModel: dashboardViewModel.profileViewModel)
+            ProfileView(profileViewModel: mainViewModel.profileViewModel)
                 .tabItem {
                     Label(String(localized: "Profile"), systemImage: "person")
                 }
@@ -42,8 +44,8 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(dashboardViewModel: MainViewModel(authManager: AuthManagerImp(),
-                                                        userManager: FirestoreUserManager(),
-                                                        mediaManager: FirebaseMediaManager()))
+        MainView(mainViewModel: MainViewModel(authManager: AuthManagerImp(),
+                                              userManager: FirestoreUserManager(),
+                                              mediaManager: FirebaseMediaManager()))
     }
 }

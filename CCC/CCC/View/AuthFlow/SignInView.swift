@@ -76,7 +76,7 @@ struct SignInView: View {
             
         }
         .fullScreenCover(isPresented: $signInViewModel.signInSuccessful) {
-            MainView(dashboardViewModel: signInViewModel.dashboardViewModel)
+            MainView(mainViewModel: signInViewModel.dashboardViewModel)
         }
         .onSubmit {
             signInViewModel.submit(form: &focused)

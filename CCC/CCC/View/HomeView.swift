@@ -9,8 +9,16 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
-        Text("Home View")
-            .font(.system(.largeTitle, design: .rounded))
+        VStack {
+            Text("Home View")
+                .font(.system(.largeTitle, design: .rounded))
+            
+            BackButton {
+                
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(AppConstants.Colors.appBackgroundColor)
     }
 }
 

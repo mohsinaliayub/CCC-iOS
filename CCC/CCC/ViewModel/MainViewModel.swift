@@ -19,14 +19,21 @@ class MainViewModel: ObservableObject {
         ProfileViewModel(authManager: authManager, mediaManager: mediaManager)
     }
     
+    var studentsViewModel: StudentsViewModel {
+        StudentsViewModel(authManager: authManager, studentsManager: studentsManager,
+                          mediaManager: mediaManager)
+    }
+    
     private let userManager: UserManager
     private let authManager: AuthManager
     private let mediaManager: MediaManager
+    private let studentsManager: StudentsManager
     
     init(authManager: AuthManager, userManager: UserManager, mediaManager: MediaManager) {
         self.authManager = authManager
         self.userManager = userManager
         self.mediaManager = mediaManager
+        self.studentsManager = FirebaseDbStudentManager()
         
         fetchSignedInUserDetailsFromFirestore()
     }
